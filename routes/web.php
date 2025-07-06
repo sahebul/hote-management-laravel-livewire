@@ -3,6 +3,10 @@
 use App\Http\Controllers\RoomController;
 use App\Livewire\Customers\CreateCustomer;
 use App\Livewire\Customers\CustomerManager;
+use App\Livewire\Guest\CreateGuest;
+use App\Livewire\Guest\GuestList;
+use App\Livewire\Room\CreateRoomType;
+use App\Models\Guest;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\RoomManager;
 use App\Livewire\Booking\BookingManger;
@@ -32,6 +36,16 @@ Route::middleware('auth')->group(function(){
     Route::get('/customers',CustomerManager::class)->name('customers.list');
     Route::get('/customers/create',CreateCustomer::class)->name('customers.create');
     Route::get('/customers/edit/{id}', CreateCustomer::class)->name('customers.edit');
+
+
+    //room types
+    Route::get('/room-types',CreateRoomType::class)->name('room-types.list');
+
+     //guests
+    Route::get('/guests',GuestList::class)->name('guests.list');
+    Route::get('/guests/create',CreateGuest::class)->name('guests.create');
+    Route::get('/guests/edit/{id}', CreateGuest::class)->name('guests.edit');
+
 });
 
 require __DIR__.'/auth.php';
