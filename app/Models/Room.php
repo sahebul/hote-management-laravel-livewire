@@ -3,9 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
     //
-    protected $fillable=['number','price','capacity','description','name'];
+    use SoftDeletes;
+    protected $fillable=['room_number','floor','room_type_id'];
+
+    public function roomType()
+    {
+        return $this->belongsTo(RoomType::class, 'room_type_id');
+    }
 }

@@ -5,7 +5,9 @@ use App\Livewire\Customers\CreateCustomer;
 use App\Livewire\Customers\CustomerManager;
 use App\Livewire\Guest\CreateGuest;
 use App\Livewire\Guest\GuestList;
+use App\Livewire\Room\CreateRoom;
 use App\Livewire\Room\CreateRoomType;
+use App\Livewire\Room\RoomList;
 use App\Models\Guest;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\RoomManager;
@@ -27,7 +29,7 @@ Route::view('profile', 'profile')
 
 // Route::get('/rooms',[RoomController::class,'index']);
 // Route::post('/rooms',[RoomController::class,'store']);
-Route::get('/rooms', RoomManager::class)->middleware('auth');
+// Route::get('/rooms', RoomManager::class)->middleware('auth');
 Route::middleware('auth')->group(function(){
     Route::get('/bookings',BookingManger::class)->name('bookings.list');
     Route::get('/bookings/create',BookingCreate::class)->name('bookings.create');
@@ -45,6 +47,12 @@ Route::middleware('auth')->group(function(){
     Route::get('/guests',GuestList::class)->name('guests.list');
     Route::get('/guests/create',CreateGuest::class)->name('guests.create');
     Route::get('/guests/edit/{id}', CreateGuest::class)->name('guests.edit');
+
+     //rooms
+    Route::get('/rooms',RoomList::class)->name('rooms.list');
+    Route::get('/rooms/create',CreateRoom::class)->name('rooms.create');
+    Route::get('/rooms/edit/{id}', CreateRoom::class)->name('rooms.edit');
+
 
 });
 
