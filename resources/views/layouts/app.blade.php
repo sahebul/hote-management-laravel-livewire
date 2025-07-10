@@ -210,10 +210,31 @@
                                     </a> </li>
                             </ul>
                         </li>
-                        <li class="nav-item"> <a href="./generate/theme.html" class="nav-link"> <i
-                                    class="nav-icon bi bi-palette"></i>
-                                <p>Theme Generate</p>
-                            </a> </li>
+                        
+                            <li class="nav-item"> 
+                            <a href="{{ route('room-types.list') }}" class="nav-link"> 
+                                 <i class="nav-icon bi bi-ui-checks-grid"></i>
+                                <p>Room Types</p>
+                            </a> 
+                        </li>
+                         <li class="nav-item"> 
+                            <a href="{{ route('rooms.list') }}" class="nav-link"> 
+                                <i class="nav-icon bi bi-ui-checks-grid"></i>
+                                <p>Rooms</p>
+                            </a> 
+                        </li>
+                        <li class="nav-item"> 
+                            <a href="{{ route('guests.list') }}" class="nav-link"> 
+                                <i class="nav-icon bi bi-palette"></i>
+                                <p>Guest</p>
+                            </a> 
+                        </li>
+                         <li class="nav-item"> 
+                            <a href="{{ route('bookings.list') }}" class="nav-link"> 
+                               <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>Bookings</p>
+                            </a> 
+                        </li>
                         <li class="nav-item"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-box-seam-fill"></i>
                                 <p>
                                     Widgets

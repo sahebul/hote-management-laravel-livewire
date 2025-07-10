@@ -7,7 +7,7 @@
    
 
   <div class="container-fluid"> <!--begin::Row-->
-    <h2 class="text-xl font-bold mb-4">Room Management</h2>
+    <h2 class="text-xl font-bold mb-4">Room Management1</h2>
     <div class="mb-4">
     <div class="row">
         <div class="col-md-3">

@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\RoomController;
+
+use App\Livewire\Booking\BookingCreate;
+use App\Livewire\Booking\BookingDetail;
+use App\Livewire\Booking\BookingList;
 use App\Livewire\Customers\CreateCustomer;
 use App\Livewire\Customers\CustomerManager;
 use App\Livewire\Guest\CreateGuest;
@@ -8,11 +11,7 @@ use App\Livewire\Guest\GuestList;
 use App\Livewire\Room\CreateRoom;
 use App\Livewire\Room\CreateRoomType;
 use App\Livewire\Room\RoomList;
-use App\Models\Guest;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\RoomManager;
-use App\Livewire\Booking\BookingManger;
-use App\Livewire\Booking\BookingCreate;
 
 Route::view('/', 'welcome');
 
@@ -31,9 +30,10 @@ Route::view('profile', 'profile')
 // Route::post('/rooms',[RoomController::class,'store']);
 // Route::get('/rooms', RoomManager::class)->middleware('auth');
 Route::middleware('auth')->group(function(){
-    Route::get('/bookings',BookingManger::class)->name('bookings.list');
+    Route::get('/bookings',BookingList::class)->name('bookings.list');
     Route::get('/bookings/create',BookingCreate::class)->name('bookings.create');
-
+    Route::get('/bookings/edit/{id}', BookingCreate::class)->name('bookings.edit');
+    Route::get('/bookings/detail/{id}', BookingDetail::class)->name('bookings.detail');
     //customers 
     Route::get('/customers',CustomerManager::class)->name('customers.list');
     Route::get('/customers/create',CreateCustomer::class)->name('customers.create');
