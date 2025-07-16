@@ -4,6 +4,7 @@ use App\Models\BookingGuest;
 use App\Models\BookingRoom;
 use App\Models\Guest;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use livewire\Component;
 use App\Models\Booking;
@@ -44,7 +45,8 @@ class BookingCreate extends Component
             $this->selectedGuests = $booking->guest->map(function ($guest) {
                 return [
                     'id' => $guest->guest_id,
-                    'name' => $guest->guestDetail->name
+                    'name' => $guest->guestDetail->name,
+                    'primary_guest' => $guest->primary_guest ? true : false
                 ];
             })->toArray();
 
@@ -85,7 +87,7 @@ class BookingCreate extends Component
                         'booking_id' => $booking->id,
                         'guest_id' => $guest['id'],
                         // 'primary_guest' => $guest['id'] == $this->form['primary_guest_id'] ? 1 : 0
-                        'primary_guest' => 0
+                        'primary_guest' => isset($guest['primary_guest']) && $guest['primary_guest'] ? 1 : 0
                     );
                 }
                 BookingGuest::insert($guestList);
@@ -115,8 +117,13 @@ class BookingCreate extends Component
             try {
 
                 $this->form['staff_id'] = auth()->id(); // Uncomment if you want to save the user_id
+                $this->form['booking_ref'] = 'BK-' . time(); // Generate a unique booking reference
                 $booking = Booking::create($this->form);
                 $bookingId = $booking->id;
+                $booking->booking_ref = 'BOOK-' . Carbon::now()->format('Ymd') . '-' . str_pad($bookingId, 6, '0', STR_PAD_LEFT);
+                $booking->save();
+
+                
 
 
                 $guestList = [];
@@ -125,7 +132,7 @@ class BookingCreate extends Component
                         'booking_id' => $bookingId,
                         'guest_id' => $guest['id'],
                         // 'primary_guest' => $guest['id'] == $this->form['primary_guest_id'] ? 1 : 0
-                        'primary_guest' => 0
+                         'primary_guest' => isset($guest['primary_guest']) && $guest['primary_guest'] ? 1 : 0
                     );
                 }
                 BookingGuest::insert($guestList);
@@ -174,7 +181,14 @@ class BookingCreate extends Component
         $this->selectedGuests = array_filter($this->selectedGuests, fn($g) => $g['id'] !== $id);
     }
 
-
+    public function primaryGuest($id)
+    {
+        // Set the primary guest
+        foreach ($this->selectedGuests as &$guest) {
+            $guest['primary_guest'] = $guest['id'] === $id ? true : false;
+        }
+        $this->dispatch('show-toast', message: 'Primary Guest Updated');
+    }
     public function addRoom()
     {
         if ($this->selectedRoomId && !in_array($this->selectedRoomId, array_column($this->selectedRooms, 'id'))) {

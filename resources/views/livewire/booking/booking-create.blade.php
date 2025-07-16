@@ -62,28 +62,28 @@
                     <div class="row">
 
                      <div class="col-md-6 mb-4">
-                        <label for="guestSelect" class="block mb-1">Select Guest</label>
-                        <select wire:model="selectedGuestId" id="guestSelect" class="col-md-8 border rounded p-2">
-                            <option value="">-- Choose a guest --</option>
+                        <label for="guestSelect" class="block mb-2 mt-2">Select Guest</label>
+                        <select wire:model="selectedGuestId" id="guestSelect" class="col-md-10 border rounded">
+                            <option value="">Choose a guest</option>
                             @foreach($guests as $guest)
                                 <option value="{{ $guest->id }}">{{ $guest->name }}</option>
                             @endforeach
                         </select>
-                        <button wire:click="addGuest" class="ml-2 btn btn-primary text-white px-3 py-1 rounded">
-                            Add
+                        <button wire:click="addGuest" class="ml-2 btn btn-primary text-white rounded">
+                           <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
 
                      <div class="col-md-6 mb-4">
-                        <label for="roomSelect" class="block mb-1">Select Room</label>
-                        <select wire:model="selectedRoomId" id="roomSelect" class="col-md-8 border rounded p-2">
-                            <option value="">-- Choose a room --</option>
+                        <label for="roomSelect" class="block mb-2 mt-2">Select Room</label>
+                        <select wire:model="selectedRoomId" id="roomSelect" class="col-md-10 border rounded">
+                            <option value="">Choose a room</option>
                             @foreach($rooms as $room)
                                 <option value="{{ $room->id }}">{{ $room->room_number }}</option>
                             @endforeach
                         </select>
-                        <button wire:click="addRoom" class="ml-2 btn btn-primary text-white px-3 py-1 rounded">
-                            Add
+                        <button wire:click="addRoom" class="ml-2 btn  btn-primary text-white rounded">
+                            <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
                     </div>
@@ -91,12 +91,20 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div>
-                                <h5 class="font-semibold mb-2">Selected Guests:</h5>
+                                <h5 class="font-semibold mb-2" style="font-size: 14px;">Selected Guests:</h5>
                                 @foreach($selectedGuests as $guest)
                                     <div class="flex items-center justify-between mb-2 border p-2 rounded">
                                         <span>{{ $guest['name'] }}</span>
-                                        <button wire:click="removeGuest({{ $guest['id'] }})" class="btn btn-danger text-white px-2 py-1 rounded">
-                                            Remove
+                                        @if(isset($guest['primary_guest']) && $guest['primary_guest'])
+                                            <span class="badge bg-success">Primary</span>
+                                        @else
+                                         <button wire:click="primaryGuest({{ $guest['id'] }})" class="btn btn-sm btn-primary text-white px-2 py-1 rounded">
+                                            Primary Guest
+                                        </button>
+                                        @endif
+                                       
+                                        <button wire:click="removeGuest({{ $guest['id'] }})" class="btn btn-danger btn-sm text-white px-2 py-1 rounded">
+                                           <i class="bi bi-trash3-fill"></i>
                                         </button>
                                     </div>
                                 @endforeach
@@ -109,12 +117,12 @@
                         </div>
                         <div class="col-md-6 mb-4">
                             <div>
-                                <h5 class="font-semibold mb-2">Selected Rooms:</h5>
+                                <h5 class="font-semibold mb-2" style="font-size: 14px;">Selected Rooms:</h5>
                                 @foreach($selectedRooms as $room)
                                     <div class="flex items-center justify-between mb-2 border p-2 rounded">
                                         <span>{{ $room['number'] }}</span>
-                                        <button wire:click="removeRoom({{ $room['id'] }})" class="btn btn-danger text-white px-2 py-1 rounded">
-                                            Remove
+                                        <button wire:click="removeRoom({{ $room['id'] }})" class="btn btn-sm btn-danger text-white px-2 py-1 rounded">
+                                           <i class="bi bi-trash3-fill"></i>
                                         </button>
                                     </div>
                                 @endforeach
@@ -134,7 +142,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button class="btn btn-primary" wire:click="save">
+                    <button class="btn btn-primary btn-sm" wire:click="save">
                         {{ $this->editId ? 'Update':'Save' }}
                     </button>
                 </div>

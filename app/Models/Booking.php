@@ -25,4 +25,9 @@ class Booking extends Model
     {
         return $this->hasMany(BookingGuest::class);
     }
+
+    public function primaryGuest()
+    {
+        return $this->hasOne(BookingGuest::class)->where('primary_guest', 1);
+    }
 }

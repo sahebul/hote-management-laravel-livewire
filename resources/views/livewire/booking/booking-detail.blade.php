@@ -23,12 +23,12 @@
                 <div class="col-md-12">
                     <div class="card mb-4">
                         <div class="card-header d-flex align-items-center">
-                            <h3 class="card-title mb-0">Booking Detail</h3>
+                            <h3 class="card-title mb-0">Booking Detail ( {{ $booking->booking_ref  }})</h3>
                             <!-- <a  href="{{ route('bookings.list') }}" class="btn btn-primary btn-sm ms-auto">Back to List</a> -->
                         </div>
 
                         <div class="card-body">
-                            <h5>Guest Information</h5>
+                            <p class="label-header">Guest Information</p>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -37,6 +37,7 @@
                                         <th>Email</th>
                                         <th>Phone Number</th>
                                         <th>Address</th>
+                                        <th>Primary Guest</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +48,7 @@
                                             <td>{{ $guest->guestDetail->email }}</td>
                                             <td>{{ $guest->guestDetail->phone }}</td>
                                             <td>{{ $guest->guestDetail->address }}</td>
+                                            <td>{{ $guest->primary_guest ? 'Yes' : 'No' }}</td>
                                         </tr>
                                     @endforeach
 
@@ -55,7 +57,7 @@
                             </table>
 
 
-                            <h5>Room Information</h5>
+                             <p class="label-header">Room Information</p>
 
                             <table class="table table-bordered">
                                 <thead>
@@ -85,7 +87,7 @@
                             </table>
 
 
-                            <h5>Booking Information</h5>
+                            <p class="label-header">Booking Information</p>
 
 
                             <table class="table table-bordered">

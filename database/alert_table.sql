@@ -63,6 +63,8 @@ CREATE TABLE rooms (
 -- 6. Bookings Table
 CREATE TABLE bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_ref VARCHAR(50) DEFAULT NULL,
+    INDEX(booking_ref),
     staff_id bigint UNSIGNED NOT NULL,
     check_in DATETIME NOT NULL,
     check_out DATETIME NOT NULL,

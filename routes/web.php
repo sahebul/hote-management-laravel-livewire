@@ -8,6 +8,8 @@ use App\Livewire\Customers\CreateCustomer;
 use App\Livewire\Customers\CustomerManager;
 use App\Livewire\Guest\CreateGuest;
 use App\Livewire\Guest\GuestList;
+use App\Livewire\Payments\CreatePayment;
+use App\Livewire\Payments\PaymentList;
 use App\Livewire\Room\CreateRoom;
 use App\Livewire\Room\CreateRoomType;
 use App\Livewire\Room\RoomList;
@@ -52,6 +54,12 @@ Route::middleware('auth')->group(function(){
     Route::get('/rooms',RoomList::class)->name('rooms.list');
     Route::get('/rooms/create',CreateRoom::class)->name('rooms.create');
     Route::get('/rooms/edit/{id}', CreateRoom::class)->name('rooms.edit');
+
+     //payments
+    Route::get('/payments',PaymentList::class)->name('payments.list');
+    Route::get('/payments/create',CreatePayment::class)->name('payments.create');
+    Route::get('/payments/edit/{id}', CreatePayment::class)->name('payments.edit');
+
 
 
 });
